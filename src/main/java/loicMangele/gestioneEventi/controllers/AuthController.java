@@ -24,8 +24,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public UtenteLoginDTO login(@RequestBody UtenteLoginDTO body) {
-        return new UtenteLoginDTO(this.authService.checkCredentialsAndGenerateToken(body));
+
+        String token = this.authService.checkCredentialsAndGenerateToken(body);
+        String email = body.email();
+        return new UtenteLoginDTO(email, token);
     }
+
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
